@@ -11,7 +11,7 @@
 
 =end
 
-math = "1 - 2 - 3 * 4 + 5"
+
 
 # solution 1, very quick and dirty, needs refactoring
 def math_eval( str = nil, a = nil )
@@ -26,7 +26,7 @@ end
 
 
 
-# solution 2, refactored solution 1, still dirty, I wasn't happy with it
+# solution 2, refactored solution 1, still dirty, but runs the fastest
 def math_eval2( str, a = nil )
   a ||= str.split(" ")
   i = (a.index( "/" ) || a.index( "*" ) || a.index( "-" ) || a.index( "+" )) - 1
@@ -36,7 +36,7 @@ end
 
 
 
-# much simpler and very fast
+# simpler bust slower because of sub!
 def math_eval3( str )
   op =  str.include?( " / " ) ? "\\/" :
         str.include?( " * " ) ? "\\*" :
@@ -47,15 +47,12 @@ def math_eval3( str )
 end
 
 
-# another approach
-# much faster than math_eval3 with inputs that evaluate to a positive number
-# slightly slower than math_eval3 with inputs that evaluate to a negative number
+
+# another approach, slightly faster than math_eval3, but slower than others
 def math_eval4( str )
   ["\\/","\\*","\\-","\\+"].each do |op|
     str.count(op).times do
-      str.sub!(/([-.0-9e]+) (#{op}) ([-.0-9e]+)/) do
-        $1.to_f.send($2, $3.to_f).to_s
-      end
+      str.sub!(/([-.0-9e]+) (#{op}) ([-.0-9e]+)/) { $1.to_f.send($2, $3.to_f).to_s }
     end
   end
   str
