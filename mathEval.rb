@@ -57,3 +57,17 @@ def math_eval4( str )
   end
   str
 end
+
+
+
+# same speed as math_eval2
+def math_eval5( str )
+  a = str.split(" ")
+  ["/","*","-","+"].each do |op|
+    a.count(op).times do 
+      i = a.index(op) - 1
+      a[i, 0] = a.delete_at(i).to_f.send( a.delete_at(i), a.delete_at(i).to_f )
+    end
+  end
+  a.join
+end
