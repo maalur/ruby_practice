@@ -60,7 +60,7 @@ end
 
 
 
-# faster than math_eval2 as input grows, also works with non single digit input
+# faster than math_eval2 as input grows, also works with single digit input
 def math_eval5( str )
   a = str.split(" ")
   ["/","*","-","+"].each do |op|
