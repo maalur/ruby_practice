@@ -39,21 +39,17 @@ end
 # second solution, refactored the first solution and created a helper function to get the rotated translation string
 def rotx2(x, string, encrypt=true)
   offset = encrypt ? x % 26 : -x % 26
-  rot_a = (offset + 'a'.ord).chr
-  rot_z = (rot_a.ord - 1).chr
-
-  string.tr('A-Za-z', rotated_alph(offset, rot_a, rot_z))
+  string.tr('A-Za-z', rotated_alph(offset))
 end
 
-def rotated_alph(offset, rot_a, rot_z)
+def rotated_alph(offset)
   case offset
-    when 0
-      "A-Za-z"
-    when 1
-      "B-ZAb-za"
-    when 25
-      "ZA-Yza-y"
+    when 0; "A-Za-z"
+    when 1; "B-ZAb-za"
+    when 25; "ZA-Yza-y"
     else
+      rot_a = (offset + 'a'.ord).chr
+      rot_z = (rot_a.ord - 1).chr
       rot_a.upcase + "-ZA-" + rot_z.upcase + rot_a + "-za-" + rot_z
   end
 end

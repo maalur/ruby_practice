@@ -60,7 +60,7 @@ end
 
 
 
-# same speed as math_eval2
+# faster than math_eval2 as input grows, also works with non single digit input
 def math_eval5( str )
   a = str.split(" ")
   ["/","*","-","+"].each do |op|
@@ -69,5 +69,5 @@ def math_eval5( str )
       a[i, 0] = a.delete_at(i).to_f.send( a.delete_at(i), a.delete_at(i).to_f )
     end
   end
-  a.join
+  a.join(" ")
 end
