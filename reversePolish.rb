@@ -25,7 +25,7 @@
 
 
 
-# first
+# first: parses an infix string ('1 + 2 - 3 / 4 * 5') and converts it to a postfix string ('1 2 + 3 4 / 5 * -') 
 VALUE = {'-' => 0, '+' => 0, '*' => 1, '/' => 2, nil => -1}
 
 def to_postfix(string)
@@ -50,7 +50,7 @@ end
 
 
 
-# second
+# second: parses a postfix string ('1 2 + 3 4 / 5 * -') and evaluates it ('-0.75')
 def postfix_eval(string)
   x, y = nil
   stack = []
@@ -68,7 +68,7 @@ end
 
 
 
-# bonus
+# bonus: parses and infix string ('1 + 2 - 3 / 4 * 5') and evaluates it ('-0.75')
 VAL = {'-' => 0, '+' => 0, '*' => 1, '/' => 2, nil => -1}
 
 def infix_eval( string )
