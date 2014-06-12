@@ -53,3 +53,19 @@ def rotated_alph(offset)
       rot_a.upcase + "-ZA-" + rot_z.upcase + rot_a + "-za-" + rot_z
   end
 end
+
+
+
+# third solution, removed case statement and refactored
+TR = { 0 => "A-Za-z", 1 => "B-ZAb-za", 25 => "ZA-Yza-y" }
+
+def rotx3(x, string, encrypt=true)
+  offset = encrypt ? x % 26 : -x % 26
+  string.tr('A-Za-z', rotated_alpha(offset))
+end
+
+def rotated_alpha(offset)
+  rot_a = (offset + 'a'.ord).chr
+  rot_z = (rot_a.ord - 1).chr
+  TR[offset] || rot_a.upcase + "-ZA-" + rot_z.upcase + rot_a + "-za-" + rot_z
+end

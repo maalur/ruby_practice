@@ -52,41 +52,40 @@ end
 
 # second: parses a postfix string ('1 2 + 3 4 / 5 * -') and evaluates it ('-0.75')
 def postfix_eval(string)
-  x, y = nil
   stack = []
   string.split(' ').each do |e|
-    if e.match(/\d+/)
-      stack << e
+    if e.match(/\d+/) then stack << e.to_f
     else
-      y = stack.pop.to_f
-      x = stack.pop.to_f
-      stack << x.send(e, y).to_s
+      y = stack.pop
+      x = stack.pop
+      stack << x.send(e, y)
     end
   end
-  stack.join
+  stack.last || 0
 end
 
 
 
-# bonus: parses and infix string ('1 + 2 - 3 / 4 * 5') and evaluates it ('-0.75')
+# bonus: parses and infix string ('1 + 2 - 3 / 4 * 5') and evaluates it (-0.75)
 VAL = {'-' => 0, '+' => 0, '*' => 1, '/' => 2, nil => -1}
 
 def infix_eval( string )
   nums = []
   ops = []
   string.split(" ").each do |e| 
-    if e.match(/\d+/) then nums << e
+    if e.match(/\d+/) then nums << e.to_f
     else
       eval_triplet( ops.pop, nums ) while VAL[ops.last] >= VAL[e]
       ops << e
     end
   end
   eval_triplet( ops.pop, nums ) while !ops.empty?
-  nums.join
+  nums.last || 0
 end
 
-def eval_triplet(operation, nums)  # helper function for 'infix_eval'
-  y = nums.pop.to_f
-  x = nums.pop.to_f
+# helper function for #infix_eval
+def eval_triplet(operation, nums)
+  y = nums.pop
+  x = nums.pop
   nums << x.send(operation, y)
 end
